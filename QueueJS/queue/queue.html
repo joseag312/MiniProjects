@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Queue</title>
+    <style>
+      body { margin: 10px; }
+      button { font-size: 24px; }
+      div.output { margin: 5px 0; font-size: 16px; }
+      canvas { display: inline-block; width: 100px; height: 16px; margin-left: 5px; }
+    </style>
+  </head>
+  <body>
+    <button class="turn">Queue it up!</button>
+    <div class="output"></div>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="queue.js"></script>
+    <script>
+      // Config
+      var USE_ABORT = true;
+      var TASK_TIME_MIN = 5; // seconds
+      var TASK_TIME_MAX = 8; // seconds
+      var clickNum = 1;
+      $(".turn").click(function (evt) {
+        var thisNum = clickNum;
+        clickNum += 1;
+        var progressBar = document.createElement("canvas");
+        progressBar.width = 100;
+        progressBar.height = 16;
+        var progressCtx = progressBar.getContext("2d");
+        var progressAmount = 0;
+        var progressDiv = $("<div></div>").append("Task number " + thisNum + " queued. ")
+        if (USE_ABORT) {
+          var abortButton = $("<button>Abort</button>");
+          abortButton.click(function (evt) { abortButton.remove(); abortFromQueue(run); });
+          progressDiv.append(abortButton);
+        }
+        $(".output").append(progressDiv);
+        var run = function (done) {
+          abortButton && abortButton.remove();
+          progressDiv.append(progressBar).append("<br>");
+          var frames = 0;
+          var durationSecs = TASK_TIME_MIN + Math.random() * (TASK_TIME_MAX - TASK_TIME_MIN);
+          var durationFrames = Math.floor(60 * durationSecs);
+          var loop = function () {
+            frames += 1;
+            progressCtx.fillStyle = "#FFFFFF";
+            progressCtx.beginPath();
+            progressCtx.rect(0, 0, 100, 16);
+            progressCtx.fill();
+            progressCtx.fillStyle = frames >= durationFrames ? "#0000FF" : "#FF0000";
+            progressCtx.beginPath();
+            progressCtx.rect(0, 0, 100 * frames / durationFrames, 16);
+            progressCtx.fill();
+            if (frames < durationFrames) {
+              requestAnimationFrame(loop);
+            } else {
+              done();
+            }
+          };
+          requestAnimationFrame(loop);
+        };
+        addToQueue(run);
+      });
+    </script>
+  </body>
+</html>
