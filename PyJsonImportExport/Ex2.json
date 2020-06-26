@@ -1,0 +1,21 @@
+{
+  "legs": [
+    "frontleft",
+    "frontright",
+    "backleft",
+    "backright"
+  ],
+  "IsYoung": false,
+  "Age": 12,
+  "Color": "Black",
+  "Owners": [
+    "Pancho",
+    "Claudia"
+  ],
+  "MedicalHistory": {
+    "NumberOfProcs": 1,
+    "Procs": [
+      "BathLol"
+    ]
+  }
+}

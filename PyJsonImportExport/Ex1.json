@@ -1,0 +1,26 @@
+{
+  "legs": [
+    "frontleft",
+    "frontright",
+    "backleft",
+    "backright"
+  ],
+  "IsYoung": true,
+  "Age": 8,
+  "Color": "Brown",
+  "Owners": [
+    "Gigio",
+    "Randy",
+    "Gigi"
+  ],
+  "MedicalHistory": {
+    "NumberOfProcs": 5,
+    "Procs": [
+      "BathLol",
+      "RemoveApendix",
+      "TrimHooves",
+      "EyesightCheck",
+      "DigestiveInfection"
+    ]
+  }
+}
